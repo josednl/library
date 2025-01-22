@@ -133,3 +133,9 @@ tr:nth-child(even) {
 .eliminate {
     background-color: #ef4444;
 }
+
+/* Form validation  */
+
+.invalid {
+    border: 1px solid red !important;
+}

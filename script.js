@@ -48,20 +48,43 @@ function addBookToLibrary() {
     let read = info[3].value;
     var newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
-    console.log(newBook.info());
+    // console.log(newBook.info());
     setTable();
+    closeButton.click();
 }
 
 function validateForm () {
-    for (let i = 0; i < info.length; i++) {
-        const element = info[i];
-        if (element.value == "") {
-            alert("Please complete the info");
-            return; 
-        }
+    // for (let i = 0; i < info.length; i++) {
+    //     const element = info[i];
+    //     if (element.value == "") {
+    //         alert("Please complete the info");
+    //         return; 
+    //     }
+    // }
+    // addBookToLibrary();
+    // form.reset();
+
+    const title = document.getElementById('title');
+    const author = document.getElementById('author');
+    const pages = document.getElementById('pages');
+    const status = document.getElementById('read');
+
+    var inputs = [title, author, pages, status];
+
+    if(inputs.some(input => input.value.length === 0)) {
+        alert('Invalid: Please, complete the empty fields');
+        return false;
     }
-    addBookToLibrary();
-    form.reset();
+
+    if (status.value.toLowerCase() !== "no" && status.value.toLowerCase() !== "yes") {
+        alert("PLease, write Yes or No");
+        status.classList.add('invalid');
+        return false;
+    } else {
+        status.classList.remove('invalid');
+        addBookToLibrary();
+        form.reset();
+    }
 }
 
 function setTable() {
@@ -117,7 +140,6 @@ function removeBook(e) {
     myLibrary.splice(e.currentTarget.dataset.index, 1);
     setTable();
 }
-
 
 //Modal
 showButton.addEventListener("click", () => {
